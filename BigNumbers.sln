@@ -5,6 +5,10 @@ VisualStudioVersion = 17.14.36414.22 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigNumbers", "BigNumbers\BigNumbers.csproj", "{3391FB68-E7BF-48DA-B173-3784B24D3027}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LargePrimesAndMersenneNumbers", "LargePrimesAndMersenneNumbers\LargePrimesAndMersenneNumbers.csproj", "{5FDC26D6-96DC-4C04-BCC9-457A3FD3FB79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigNumbersLib", "BigNumbersLib\BigNumbersLib.csproj", "{D61820C0-DCB1-423A-AB51-7B97BC0078DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{3391FB68-E7BF-48DA-B173-3784B24D3027}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3391FB68-E7BF-48DA-B173-3784B24D3027}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3391FB68-E7BF-48DA-B173-3784B24D3027}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FDC26D6-96DC-4C04-BCC9-457A3FD3FB79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FDC26D6-96DC-4C04-BCC9-457A3FD3FB79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FDC26D6-96DC-4C04-BCC9-457A3FD3FB79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FDC26D6-96DC-4C04-BCC9-457A3FD3FB79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D61820C0-DCB1-423A-AB51-7B97BC0078DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D61820C0-DCB1-423A-AB51-7B97BC0078DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D61820C0-DCB1-423A-AB51-7B97BC0078DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D61820C0-DCB1-423A-AB51-7B97BC0078DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

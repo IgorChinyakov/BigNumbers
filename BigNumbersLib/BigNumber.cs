@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace BigNumbers
+namespace BigNumbersLib
 {
     public class BigNumber
     {
@@ -14,6 +14,8 @@ namespace BigNumbers
         private bool _isNegative = false;
 
         public bool IsNegative => _isNegative;
+
+        public IReadOnlyList<byte> Bytes => _bytes;
 
         private BigNumber(List<byte> bytes, bool isNegative)
         {
@@ -48,9 +50,32 @@ namespace BigNumbers
 
         public static BigNumber operator ^(BigNumber number, int degree)
         {
-            var result = new BigNumber(number._bytes, number.IsNegative);
-            for (int i = 1; i < degree; i++)
-                result = result * number;
+            if (degree < 0)
+                throw new ArgumentException("Степень должна быть неотрицательной.");
+
+            if (degree == 0)
+                return new BigNumber("1");
+
+            if (degree == 1)
+                return new BigNumber(number._bytes, number.IsNegative);
+
+            var result = new BigNumber("1");
+            var baseValue = new BigNumber(number._bytes, number.IsNegative);
+
+            int exp = degree;
+
+            while (exp > 0)
+            {
+                // Если степень нечётная — умножаем результат на текущее основание
+                if ((exp & 1) == 1)
+                    result = result * baseValue;
+
+                // Возводим основание в квадрат
+                baseValue = baseValue * baseValue;
+
+                // Делим степень на 2
+                exp >>= 1;
+            }
 
             return result;
         }
@@ -174,6 +199,9 @@ namespace BigNumbers
             return result;
         }
 
+        public void AddByte(byte @byte)
+            => _bytes.Add(@byte);
+
         public override string ToString()
         {
             var stringBuilder = new StringBuilder();
@@ -251,21 +279,27 @@ namespace BigNumbers
             return ((byte)(sum % 10), (byte)(sum / 10));
         }
 
-        private static int Compare(BigNumber a, BigNumber b)
+        private static int Compare(BigNumber first, BigNumber second)
         {
-            if (a._bytes.Count < b._bytes.Count)
+            // Сравнение знаков
+            if (first.IsNegative && !second.IsNegative) return -1;
+            if (!first.IsNegative && second.IsNegative) return 1;
+
+            // Определяем коэффициент для отрицательных чисел
+            int signFactor = first.IsNegative ? -1 : 1;
+
+            // Сравнение длины
+            if (first._bytes.Count != second._bytes.Count)
+                return first._bytes.Count < second._bytes.Count ? -1 * signFactor : 1 * signFactor;
+
+            // Побайтовое сравнение
+            for (int i = 0; i < first._bytes.Count; i++)
             {
-                return -1;
+                if (first._bytes[i] != second._bytes[i])
+                    return first._bytes[i] < second._bytes[i] ? -1 * signFactor : 1 * signFactor;
             }
 
-            for (int i = 0; i < a._bytes.Count; i++)
-            {
-                if (a._bytes.Count - 1 == i)
-                    continue;
-
-                return a._bytes[i] < b._bytes[i] ? -1 : 1;
-            }
-
+            // Если все байты равны
             return 0;
         }
 
